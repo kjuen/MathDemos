@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html lang="de">
+  <head>
+    <title>Zeigerdiagramm</title>
+    <link rel="stylesheet" type="text/css"
+          href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
+
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.1/jsxgraphcore.js"></script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+      TeX: { equationNumbers: { autoNumber: "AMS" } },
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+      });
+    </script>
+    <script type="text/javascript"
+            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+    <style type="text/css">
+      .Formel_green {
+      color:green;
+      }
+      .Formel_blue {
+      color:blue;
+      }
+      .Formel_purple {
+      color:purple;
+      }
+      .Formel_red {
+      color:red;
+      }
+    </style>
+    <h1>Das Zeigerdiagramm in der komplexen Ebene</h1>
+  </head>
+
+  <body>
+    <table>
+      <tr>
+        <td>
+          <div id="jxgbox1" class="jxgbox" style="width:250px; height:250px;"></div>
+        </td>
+        <td>
+          <div id="jxgbox2" class="jxgbox" style="width:350px; height:250px;"></div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="jxgbox3" class="jxgbox" style="width:250px; height:350px;"></div>
+        </td>
+        <td>
+          <div id="jxgbox4" class="jxgbox" style="width:350px; height:350px;"></div>
+        </td>
+      </tr>
+    </table>
+    <script type="text/javascript" src="ZeigerDiag.js"></script>
+    <p>
+      Eine reelle Sinus-Schwingung mit Kreisfrequenz $\omega$, Phase $\varphi$ und Amplitude $A$ hat die Form
+      <span class="Formel_blue">
+        \begin{equation*}
+        y(t) = A \sin(\omega t + \varphi )
+        \end{equation*}
+      </span>
+      und lässt sich als Imaginärteil einer komplexen Exponentialfunktion schreiben:
+      \begin{equation*}
+      A \sin(\omega t + \varphi )
+      = \text{Im} \left ( A e^{(j\omega t + \varphi ) } \right )
+      = \text{Im} \left (B e^{j\omega t} \right )
+      \end{equation*}
+      Dabei besteht die komplexe Amplitude <span class="Formel_purple">$B$</span>
+      aus reeller Amplitude $A$ und Phase $\varphi$:
+      <span class="Formel_purple">
+        \begin{equation*}
+        B = A e^{j\varphi},
+        \end{equation*}
+      </span>
+      $y(t)$ ist also der Imaginärteil eines Zeigers
+      \begin{equation*}
+      z(t) = B e^{j\omega t},
+      \end{equation*}
+      der in der komplexen Ebene mit der Winkelgeschwindigkeit $\omega$ rotiert.
+      Die komplexe Amplitude $B$ ist die Position des Zeigers zum Zeitpunkt $t=0$.
+
+      Ganz ähnlich hat eine reelle Kosinus-Schwingung die Form
+      <span class="Formel_green">
+        \begin{equation*}
+        x(t) = A \cos(\omega t + \varphi )
+        \end{equation*}
+      </span>
+      und kann als Realteil des komplexen Zeigers beschrieben werden:
+      \begin{equation*}
+      A \cos(\omega t + \varphi )
+      = \text{Re} \left ( A e^{(j\omega t + \varphi ) } \right )
+      = \text{Re} \left (B e^{j\omega t} \right )
+      \end{equation*}
+    </p>
+  </body>
+</html>
