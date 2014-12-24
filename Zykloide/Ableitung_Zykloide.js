@@ -1,10 +1,5 @@
 // Zykloide inklusive Ableitung
 
-// TODO:
-// - Bug: Die Abstand- und t-slider Label werden nicht angezeigt.
-// - Buggy: Die checkbox-Logik besser implementieren
-// - Vielleicht: Besseres HTML-Layout, Erster Abstatz neben den Plot
-
 function setSliderVis(slid, vis) {
     slid.setAttribute({visible:vis, withLabel:vis});
     slid.baseline.setAttribute({visible:vis});
@@ -88,7 +83,7 @@ var txtrt = brd.create('text',
                        {visible:false});
 
 // --- Darstellung des Rades
-var radVisibility = true;   // TODO: Aus Checkbox auslesen
+var radVisibility = true;
 var radOpacity = 1;
 var circleCenter = brd.create('point',
                               [function() {return radius * sliderT.Value();},
@@ -150,10 +145,6 @@ var sliderDeltaT = brd.create('slider', [[1,3.5], [4,3.5], [0,0.5,1]],
                               {name:"&Delta; t",
                                visible:false,
                                withLabel:false});
-// sliderDeltaT.baseline.setAttribute({visible:ablVisibility});
-// sliderDeltaT.highline.setAttribute({visible:ablVisibility});
-// Visibility eines sliders setzen
-
 setSliderVis(sliderDeltaT, false);
 
 
@@ -173,8 +164,6 @@ var g2 = brd.create('point',
                      strokeColor:'green',
                      fillcolor:'green'});
 // Ortsvektor r(t+Dt)
-// TODO: Wie beschriftet man das? Vielleicht mit brd.create('text' ...)
-// und getTextAnchor() ?
 var vecrtDt = brd.create('arrow', [ursprung, g2],
                          {name:"r(t+Dt)",
                           infoboxtext:"r(t+Dt)",

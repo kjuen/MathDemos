@@ -1,10 +1,3 @@
-// TODO:
-// - Zwei Modi: Automatisch und von Hand
-// - Erklärender Text
-// - komplexe Amplitude einzeichnen
-// - Ticks mit der Periode auf der Zeitachse einzeichnen
-
-
 // namespace fuer Applikation
 var zd = {
     dynamic: false,
@@ -37,8 +30,6 @@ zd.tfunc = function() {return zd.tSlider.Value();};
 
 
 // --- Board brd1: Der eigentliche, rotierende Zeiger ---
-// TODO: Slider fuer Phase einbauen
-
 zd.brd1 = JXG.JSXGraph.initBoard('jxgbox1',
                                  {boundingbox:[-zd.boxHeight,  zd.boxHeight,
                                                zd.boxHeight, -zd.boxHeight],
@@ -121,7 +112,6 @@ zd.brd4.addChild(zd.brd2);   // damit das Board auf slider updates reagiert
 
 zd.brd2.create('text', [zd.taxisLen-0.5, 0.15, 't']);
 zd.brd2.create('text', [0.2,zd.boxHeight-0.15, 'y(t)']);
-// zd.brd2.create('functiongraph', [zd.xfunc, 0, zd.taxisLen]);
 zd.brd2.create('functiongraph',
                [zd.yfunc, 0, zd.taxisLen-1],
                {strokeColor:'blue', strokeWidth:2});
