@@ -1,3 +1,5 @@
+/*global JXG */
+
 // namespace fuer Applikation
 var zd = {
     dynamic: false,
@@ -35,7 +37,7 @@ zd.brd1 = JXG.JSXGraph.initBoard('jxgbox1',
                                                zd.boxHeight, -zd.boxHeight],
                                   keepaspectratio:true,
                                   axis:true,
-                                  showCopyright: true,
+                                  showCopyright: false,
                                   showNavigation: false});
 zd.brd1.defaultAxes.x.removeAllTicks();
 zd.brd1.defaultAxes.y.removeAllTicks();
@@ -103,7 +105,7 @@ zd.brd2 = JXG.JSXGraph.initBoard('jxgbox2',
                                   keepaspectratio:false,
                                   axis:true,
                                   grid:false,
-                                  showCopyright: true,
+                                  showCopyright: false,
                                   showNavigation: false});
 zd.brd2.defaultAxes.x.removeAllTicks();
 zd.brd2.defaultAxes.y.removeAllTicks();
@@ -137,7 +139,7 @@ zd.brd3 = JXG.JSXGraph.initBoard('jxgbox3',
                                   keepaspectratio:false,
                                   axis:false,
                                   grid:false,
-                                  showCopyright: true,
+                                  showCopyright: false,
                                   showNavigation: false});
 zd.brd4.addChild(zd.brd3);
 zd.ax3x = zd.brd3.create('axis', [[0, 0.75],
