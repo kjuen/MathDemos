@@ -3,7 +3,7 @@
 // namespace fuer Applikation
 var zd = {
     dynamic: false,
-    boxHeight: 1.5,
+    boxHeight: 1.6,
     taxisLen: 3*Math.PI,
     freq:0.2,
     phaseColor:'purple'
@@ -54,7 +54,7 @@ zd.brd1.create('circle', [[0,0], 1],
 zd.pointB = zd.brd1.create('point',
                            [function() {return zd.xfunc(0);}, function() {return zd.yfunc(0);}],
                            {face:'o',
-                            withLabel:true, name:'B',
+                            withLabel:false,
                             frozen:true,
                             size:1.5, strokeColor:zd.phaseColor,
                             fillColor:zd.phaseColor});
@@ -63,7 +63,8 @@ zd.brd1.create('segment',[[0,0],zd.pointB],{strokeWidth:1.5, strokeColor:zd.phas
 zd.point1 = zd.brd1.create('point',
                            [zd.xfuncCur, zd.yfuncCur],
                            {face:'o',
-                            withLabel:false,
+                            withLabel:true,
+                            name:'z(t)',
                             size:2, strokeColor:'red',
                             fillOpacity:1, strokeOpacity: 1});
 zd.brd1.create('arrow',[[0,0],zd.point1],{strokeWidth:2, strokeOpacity:1, strokeColor:'black'});
