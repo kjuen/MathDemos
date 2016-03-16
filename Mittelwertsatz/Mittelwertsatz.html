@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html lang="de">
+    <head>
+        <title>Der Mittelwertsatz der Analysis</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="../lib/jsxgraph.css" />
+        <script type="text/javascript"  src="../lib/jsxgraphcore.js"> </script>
+        <script type="text/javascript"
+                src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+        </script>
+        <script type="text/x-mathjax-config">
+         MathJax.Hub.Config({
+             TeX: { equationNumbers: { autoNumber: "AMS" } },
+             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+         });
+        </script>
+
+        <h1>Der Mittelwertsatz der Analysis</h1>
+    </head>
+
+    <body>
+
+        <div id="jxgbox" class="jxgbox" style="width:750px; height:400px;"></div>
+        <script type="text/javascript" src="Mittelwertsatz.js"> </script>
+        <div> Code von <a href="http://jsxgraph.uni-bayreuth.de/wiki/index.php/Mean_Value_Theorem">jsxgraph</a>, der Funktionsverlauf kann durch Ziehen der blauen Punkte geändert werden.</div>
+
+        <p>Der Satz von Taylor lautet in niedrigster Ordnung
+            $\displaystyle
+            f(x) = f(x_0) + f'(a) \cdot (x-x_0).
+            $
+            Dabei ist $x_0$ der Entwicklungspunkt und
+            $a$ ein Punkt zwischen $x_0$ und $x$, dessen genaue Lage in der Regel nicht bekannt ist.
+            Eine kleine Umformung ergibt
+            $$
+            \frac{f(x) - f(x_0)}{x-x_0} = f'(a)
+            $$
+            Der Ausdruck links gibt die Steigung der Geraden durch die Punkte
+            $(x_0, f(x_0))$ und $(x, f(x))$ an (rot gestrichelt in der Darstellung).
+            Es gibt also zwischen $x_0$ und $x$ immer einen Punkt $a$, an dem die
+            Tangentensteigung mit der Steigung dieser Geraden übereinstimmt.
+            Dieser anschaulich einleuchtende Sachverhalt ist auch als Mittelwert der
+            Differentialrechnung bekannt.
+        </p>
+
+
+    </body>
+</html>
