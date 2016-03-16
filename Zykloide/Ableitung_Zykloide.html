@@ -4,7 +4,7 @@
     <title>Die Zykloide</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../lib/jsxgraph.css" />
-    <style type="text/css">
+    <Style type="text/css">
       #Formel_r_m {
       color:green;
       }
@@ -28,115 +28,114 @@
       }
     </style>
 
-    <script type="text/javascript"  src="../lib/jsxgraphcore.js">
-    </script>
+    <script type="text/javascript"  src="../lib/jsxgraphcore.js"> </script>
     <script type="text/javascript"
             src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
     </script>
     <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-      TeX: { equationNumbers: { autoNumber: "AMS" } },
-      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
-      });
+     MathJax.Hub.Config({
+         TeX: { equationNumbers: { autoNumber: "AMS" } },
+         tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+     });
     </script>
 
   </head>
   <body>
-    <h1>Vektorielle Ableitung am Beispiel der
-      <a href="http://de.wikipedia.org/wiki/Zykloide">Zykloide</a>
-    </h1>
+      <h1>Vektorielle Ableitung am Beispiel der
+          <a href="http://de.wikipedia.org/wiki/Zykloide">Zykloide</a>
+      </h1>
 
-    <div id="jxgbox" class="jxgbox" style="width:750px; height:400px;"></div>
-    <script type="text/javascript" src="Ableitung_Zykloide.js"></script>
-    Rad ausblenden: <input type="checkbox" id="rad" onclick="radCheckbox()"/>
+      <div id="jxgbox" class="jxgbox" style="width:750px; height:400px;"></div>
+      <script type="text/javascript" src="Ableitung_Zykloide.js"></script>
+      Rad ausblenden: <input type="checkbox" id="rad" onclick="radCheckbox()"/>
 
-    <p>
-      Die Bahnkurve eines Punktes im Abstand $a$ vom Mittelpunkt eines
-      Kreises mit Radius $r=1$, der mit konstanter Winkelgeschwindigkeit
-      $\omega$ abrollt, heißt Zykloide und wird durch die folgende
-      Vektorfunktion beschrieben:
-      \begin{equation}
-      \label{eq:zykl_ges}
-      \vec{r}(t) = \binom{r\omega t-a\sin(\omega t)}{r - a \cos(\omega t)}
-      \end{equation}
-    </p>
+      <p>
+          Die Bahnkurve eines Punktes im Abstand $a$ vom Mittelpunkt eines
+          Kreises mit Radius $r=1$, der mit konstanter Winkelgeschwindigkeit
+          $\omega$ abrollt, heißt Zykloide und wird durch die folgende
+          Vektorfunktion beschrieben:
+          \begin{equation}
+          \label{eq:zykl_ges}
+          \vec{r}(t) = \binom{r\omega t-a\sin(\omega t)}{r - a \cos(\omega t)}
+          \end{equation}
+      </p>
 
 
-    <h3>
-      <input type="checkbox" id="Herleitung"
-             onclick="herlCheckbox()">
-      Herleitung der Bahnkurve
-    </h3>
-   <p id="herl_text">
-     Der Ortsvektor $\vec{r}(t)$ zum Punkt $P$ lässt sich als Überlagerung zweier
-     Bewegungen verstehen, also
-     \begin{equation}
-     \vec{r}(t) = \overline{OP} = \vec{r}_m(t) + \vec{r}_a(t)
-     \label{eq:zykl_herl1}
-     \end{equation}
-     Dabei beschreibt $\vec{r}_m(t)$ die geradlinige
-     Bewegung des Radmittelpunktes mit konstanter Geschwindigkeit
-     $v = r \cdot \omega$, also
-     <span id="Formel_r_m">
-       \begin{equation}
-       \vec{r}_m(t) = \overline{OM} = \binom{r\omega t}{r}.
-       \label{eq:rmt}
-       \end{equation}
-     </span>
-     $\vec{r}_a(t)$ beschreibt die Kreisbewegung des Punktes $P$ im Abstand $a$ um den
-     Kreismittelpunkt mit konstanter Winkelgeschwindigkeit $\omega$. Die Phase der
-     Kreisbewegung muss dabei so gewählt werden, dass $\vec{r}(0) = \vec{0}$ gilt.
-     Damit ergibt sich
-     <span id="Formel_r_a">
-       \begin{equation}
-       \vec{r}_a(t) = \overline{MP} = a \binom{\sin(\omega t)}{-\cos(\omega t)}.
-       \label{eq:rat}
-       \end{equation}
-     </span>
-     <!-- TODO: Numerierung der Formeln -->
-     Die Zykloidengleichung \eqref{eq:zykl_ges} ergibt sich, wenn man
-     die Gleichungen \eqref{eq:rmt} und \eqref{eq:rat} in \eqref{eq:zykl_herl1}
-     einsetzt.
+      <h3>
+          <input type="checkbox" id="Herleitung"
+                 onclick="herlCheckbox()">
+          Herleitung der Bahnkurve
+      </h3>
+      <p id="herl_text">
+          Der Ortsvektor $\vec{r}(t)$ zum Punkt $P$ lässt sich als Überlagerung zweier
+          Bewegungen verstehen, also
+          \begin{equation}
+          \vec{r}(t) = \overline{OP} = \vec{r}_m(t) + \vec{r}_a(t)
+          \label{eq:zykl_herl1}
+          \end{equation}
+          Dabei beschreibt $\vec{r}_m(t)$ die geradlinige
+          Bewegung des Radmittelpunktes mit konstanter Geschwindigkeit
+          $v = r \cdot \omega$, also
+          <span id="Formel_r_m">
+              \begin{equation}
+              \vec{r}_m(t) = \overline{OM} = \binom{r\omega t}{r}.
+              \label{eq:rmt}
+              \end{equation}
+          </span>
+          $\vec{r}_a(t)$ beschreibt die Kreisbewegung des Punktes $P$ im Abstand $a$ um den
+          Kreismittelpunkt mit konstanter Winkelgeschwindigkeit $\omega$. Die Phase der
+          Kreisbewegung muss dabei so gewählt werden, dass $\vec{r}(0) = \vec{0}$ gilt.
+          Damit ergibt sich
+          <span id="Formel_r_a">
+              \begin{equation}
+              \vec{r}_a(t) = \overline{MP} = a \binom{\sin(\omega t)}{-\cos(\omega t)}.
+              \label{eq:rat}
+              \end{equation}
+          </span>
+          <!-- TODO: Numerierung der Formeln -->
+          Die Zykloidengleichung \eqref{eq:zykl_ges} ergibt sich, wenn man
+          die Gleichungen \eqref{eq:rmt} und \eqref{eq:rat} in \eqref{eq:zykl_herl1}
+          einsetzt.
 
-     <h3>
-       <input type="checkbox" id="Abl1"
-              onclick="abl1Checkbox()">Erste Ableitung
-     </h3>
-     <p id="abl1_text">
-       Die Ableitung lässt sich konstruieren, indem man den Vektor
-       <span id="Formel_DrDt">
-         \begin{equation}
-         \frac{1}{\Delta t} ( \vec{r}(t+\Delta t) - \vec{r}(t) ),
-         \end{equation}
-       </span>
-       also den mit $1/\Delta t$ skalierten Differenzvektor zwischen den
-       Ortsvektoren
-       <span id="Formel_oq">
-         $\vec{r}(t+\Delta t) = \overline{OQ}$
-       </span>
-       und
-       <span id="Formel_op">
-         $\vec{r}(t) = \overline{OP}$
-       </span>
-       betrachtet.
-       Die Ableitung ergibt sich als Grenzwert $\Delta t \to 0$,
-       bei dem der Punkt $Q$ an den Punkt $P$ herangeschoben wird.
-       Die geometrische Konstruktion zeigt, dass der enstehende Differenzvektor
-       tangential an die Bahnkurve zeigt. Rechnerisch wird der Grenzwert
-       komponentenweise ausgeführt, die Komponenten werden also unabhängig
-       voneinander differenziert:
-       \begin{equation}
-       \dot{\vec{r}}(t) = \lim_{\Delta t \to 0}
-       \frac{\vec{r}(t+\Delta t) - \vec{r}(t)}{\Delta t}
-       = \binom{r\omega - a \omega \cos(\omega t)}{a\omega \sin(\omega t)}
-       \end{equation}
-     </p>
+          <h3>
+              <input type="checkbox" id="Abl1"
+                     onclick="abl1Checkbox()">Erste Ableitung
+          </h3>
+          <p id="abl1_text">
+              Die Ableitung lässt sich konstruieren, indem man den Vektor
+              <span id="Formel_DrDt">
+                  \begin{equation}
+                  \frac{1}{\Delta t} ( \vec{r}(t+\Delta t) - \vec{r}(t) ),
+                  \end{equation}
+              </span>
+              also den mit $1/\Delta t$ skalierten Differenzvektor zwischen den
+              Ortsvektoren
+              <span id="Formel_oq">
+                  $\vec{r}(t+\Delta t) = \overline{OQ}$
+              </span>
+              und
+              <span id="Formel_op">
+                  $\vec{r}(t) = \overline{OP}$
+              </span>
+              betrachtet.
+              Die Ableitung ergibt sich als Grenzwert $\Delta t \to 0$,
+              bei dem der Punkt $Q$ an den Punkt $P$ herangeschoben wird.
+              Die geometrische Konstruktion zeigt, dass der enstehende Differenzvektor
+              tangential an die Bahnkurve zeigt. Rechnerisch wird der Grenzwert
+              komponentenweise ausgeführt, die Komponenten werden also unabhängig
+              voneinander differenziert:
+              \begin{equation}
+              \dot{\vec{r}}(t) = \lim_{\Delta t \to 0}
+              \frac{\vec{r}(t+\Delta t) - \vec{r}(t)}{\Delta t}
+              = \binom{r\omega - a \omega \cos(\omega t)}{a\omega \sin(\omega t)}
+              \end{equation}
+          </p>
 
-     <!--  -->
-     <!-- Spaeter: -->
-     <!-- <h3>
-       <input type="checkbox" id="Abl2">Zweite Ableitung
-     </h3> -->
+          <!--  -->
+          <!-- Spaeter: -->
+          <!-- <h3>
+               <input type="checkbox" id="Abl2">Zweite Ableitung
+               </h3> -->
 
   </body>
 </html>
