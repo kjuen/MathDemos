@@ -1,5 +1,7 @@
 /*global JXG */
 
+// code from http://jsxgraph.uni-bayreuth.de/wiki/index.php/Mean_Value_Theorem
+
 var board = JXG.JSXGraph.initBoard('jxgbox', {
   boundingbox: [-5, 10, 7, -6],
   showCopyright: true,
