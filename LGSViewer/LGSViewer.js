@@ -1,6 +1,6 @@
 /*global addWorldAxes, dat, THREE, getPlaneCorners, lgsCon, calcIntersectionLine */
 
-// TODO: Mit Plane2 rumspielen, ob das besser aussieht
+// TODO: Transparenz pro Ebene einbauen
 
 //* Initialize webGL
 var renderer = new THREE.WebGLRenderer({antialias:true});
@@ -232,36 +232,36 @@ Plane.prototype.setVisible = function(flag) {
 };
 
 
-function Plane2(idx) {
-  this.idx = idx;
-  var a = lgsCon.eqs[idx].getA();
-  var b = lgsCon.eqs[idx].getB();
+// function Plane2(idx) {
+//   this.idx = idx;
+//   var a = lgsCon.eqs[idx].getA();
+//   var b = lgsCon.eqs[idx].getB();
 
-  // this create plane in x-y-plane
-  var geometry = new THREE.PlaneBufferGeometry(lgsCon.planeSize, lgsCon.planeSize);
-  var material = new THREE.MeshPhongMaterial( {color: lgsCon.eqs[idx].col,
-                                               specular: lgsCon.eqs[idx].col,
-                                               side: THREE.DoubleSide} );
-  this.mesh = new THREE.Mesh( geometry, material );
-  scene.add(this.mesh);
+//   // this create plane in x-y-plane
+//   var geometry = new THREE.PlaneBufferGeometry(lgsCon.planeSize, lgsCon.planeSize);
+//   var material = new THREE.MeshPhongMaterial( {color: lgsCon.eqs[idx].col,
+//                                                specular: lgsCon.eqs[idx].col,
+//                                                side: THREE.DoubleSide} );
+//   this.mesh = new THREE.Mesh( geometry, material );
+//   scene.add(this.mesh);
 
-  this.mesh.position.copy(a.clone().multiplyScalar(b/a.lengthSq()));
-  var m = new THREE.Matrix4();
-  var theta = Math.acos(a.z/a.length());
-  m.makeRotationAxis(new THREE.Vector3(a.y, -a.x, 0).normalize(), theta);
-  this.mesh.rotation.setFromRotationMatrix(m);
+//   this.mesh.position.copy(a.clone().multiplyScalar(b/a.lengthSq()));
+//   var m = new THREE.Matrix4();
+//   var theta = Math.acos(a.z/a.length());
+//   m.makeRotationAxis(new THREE.Vector3(a.y, -a.x, 0).normalize(), theta);
+//   this.mesh.rotation.setFromRotationMatrix(m);
 
-  this.normal = createTubeArrow({len:1, col:lgsCon.eqs[idx].col});
-  positionNormal(this.normal, a, b);
-  this.normal.visible = lgsCon.Normalenvektoren;
-  this.mesh.add(this.normal);
-  this.mesh.traverse(function(obj) {
-    if(obj.material !== undefined) {
-      obj.material.transparent = true;
-      obj.material.opacity = lgsCon.Transparenz;
-    }
-  });
-}
+//   this.normal = createTubeArrow({len:1, col:lgsCon.eqs[idx].col});
+//   positionNormal(this.normal, a, b);
+//   this.normal.visible = lgsCon.Normalenvektoren;
+//   this.mesh.add(this.normal);
+//   this.mesh.traverse(function(obj) {
+//     if(obj.material !== undefined) {
+//       obj.material.transparent = true;
+//       obj.material.opacity = lgsCon.Transparenz;
+//     }
+//   });
+// }
 
 
 
@@ -271,9 +271,9 @@ planes[0] = new Plane(0);
 planes[1] = new Plane(1);
 planes[2] = new Plane(2);
 
-var p0 = new Plane2(0);
-var p1 = new Plane2(1);
-var p2 = new Plane2(2);
+// var p0 = new Plane2(0);
+// var p1 = new Plane2(1);
+// var p2 = new Plane2(2);
 
 //** Draw solution as black sphere
 var sol = new THREE.Mesh(new THREE.SphereGeometry (0.1, 16, 16),
@@ -285,7 +285,6 @@ scene.add(sol);
 
 
 //* Create line for testing
-
 function IntersectionLine(idx1, idx2) {
   this.idx1 = idx1;
   this.idx2 = idx2;
@@ -299,7 +298,7 @@ function IntersectionLine(idx1, idx2) {
 
     this.mesh = new THREE.Mesh(tg, new THREE.MeshPhongMaterial({color:col,
                                                                 side:THREE.DoubleSide,
-                                                                specular:0xffff00,
+                                                                specular:0x404040,
                                                                 wireframe:false}));
     scene.add(this.mesh);
   }
@@ -360,12 +359,12 @@ scene.add(worldAxes);
 
 //* Rendering
 
-// var outerBox = new THREE.Mesh(new THREE.BoxGeometry(2*lgsCon.planeSize, 2*lgsCon.planeSize, 2*lgsCon.planeSize),
-//                               new THREE.MeshPhongMaterial({color:'black',
-//                                                            transparent:true,
-//                                                            opacity:0.3}));
-// var boxEdges = new THREE.EdgesHelper( outerBox, 0x000000 );
-// scene.add( boxEdges );
+var outerBox = new THREE.Mesh(new THREE.BoxGeometry(2*lgsCon.planeSize, 2*lgsCon.planeSize, 2*lgsCon.planeSize),
+                              new THREE.MeshPhongMaterial({color:'black',
+                                                           transparent:true,
+                                                           opacity:0.3}));
+var boxEdges = new THREE.EdgesHelper( outerBox, 0x000000 );
+scene.add( boxEdges );
 
 
 var controls = new THREE.OrbitControls( camera );
