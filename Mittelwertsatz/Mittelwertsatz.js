@@ -23,7 +23,7 @@ var g = function(x) {
 var r = board.create('glider', [
   function() { return JXG.Math.Numerics.root(g,(p[0].X()+p[1].X())*0.5); },
   function() { return f(JXG.Math.Numerics.root(g,(p[0].X()+p[1].X())*0.5)); },
-  graph], {name:'a',size:2,fixed:true});
+  graph], {name:'&eta;',size:2,fixed:true});
 board.create('tangent', [r], {strokeColor:'#ff0000'});
 var line = board.create('line',[p[0],p[1]],{strokeColor:'#ff0000',dash:1});
 
