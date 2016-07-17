@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Gerade im Raum</title>
+        <meta charset="utf-8">
+        <style>
+         body   { color: white; }
+         html    { background-color: black; }
+        </style>
+        <script type="text/javascript"
+                src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+        </script>
+        <script type="text/x-mathjax-config">
+         MathJax.Hub.Config({
+             TeX: { equationNumbers: { autoNumber: "AMS" } },
+             tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+         });
+        </script>
+
+    </head>
+    <body>
+
+        <h1 style="text-align: center">Eine Gerade im Raum</h1>
+        Die Geradegleichung lautet
+        $
+        \vec{r}(t) = \vec{a} + t \vec{b}.
+        $
+        Dabei wird ...
+        <ul>
+            <li>der Vektor $\vec{a}$ blau dargestellt,</li>
+            <li>der Vektor $\vec{b}$ grün dargestellt.</li>
+        </ul>
+        Die gesamte Gerade ergibt sich, wenn $t$ alle reellen Zahlen durchläuft.
+        Für einen speziellen Wert von $t$ (siehe Slider) ist der Punkt $\vec{r}(t)$
+        als roter Punkt dargestellt.
+
+        <script type="text/javascript" src="../lib/dat.gui.min.js"></script>
+        <script type="text/javascript" src="../lib/three.min.js"></script>
+        <script type="text/javascript" src="../lib/OrbitControls.js"></script>
+        <script type="text/javascript" src="GeradeImRaum.js"></script>
+
+    </body>
+
+</html>
