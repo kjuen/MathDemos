@@ -5,9 +5,6 @@ var canvas = document.getElementById('graphics');
 //* Initialize webGL
 var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true});
 renderer.setSize( window.innerWidth, window.innerHeight );
-// graphicsdiv.appendChild( renderer.domElement );
-
-document.body.appendChild(renderer.domElement);
 renderer.setClearColor('black');    // set background color
 
 // Create a new Three.js scene and a camera

@@ -2,10 +2,11 @@
 
 // TODO: Pfeilspietze endet nicht genau am gewuenschten Punkt.
 
+var canvas = document.getElementById('graphics');
 //* Initialize webGL
-var renderer = new THREE.WebGLRenderer({antialias:true});
+var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias:true});
 renderer.setSize( window.innerWidth, window.innerHeight );
-document.body.appendChild( renderer.domElement );
+// document.body.appendChild( renderer.domElement );
 renderer.setClearColor('black');    // set background color
 
 // Create a new Three.js scene and a camera
@@ -222,26 +223,8 @@ window.onload = function() {
   });
 };
 
-
-
-// Evtl. Optional: Ein grid
-// var size = 2;
-// var step = 1;
-// var gridXZ = new THREE.GridHelper( size, step );
-// scene.add( gridXZ );
-// var gridXZ2 = new THREE.GridHelper( size, step );
-// gridXZ2.position.y = 1;
-// scene.add(gridXZ2);
-// var gridXY = new THREE.GridHelper( size, step );
-// gridXY.rotation.x = Math.PI / 2;
-// scene.add( gridXY );
-// var gridYZ = new THREE.GridHelper( size, step );
-// gridYZ.rotation.z = Math.PI / 2;
-// scene.add( gridYZ );
-
-
 //* Rendering
-var controls = new THREE.OrbitControls( camera );
+var controls = new THREE.OrbitControls( camera, canvas );
 function render() {
   requestAnimationFrame(render);
 
