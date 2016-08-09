@@ -12,6 +12,8 @@ Einige Mathe-Demos:
   <http://kjuen.github.io/MathDemos/Mittelwertsatz/Mittelwertsatz.html>
 * Gerade im Raum:
   <http://kjuen.github.io/MathDemos/GeradeImRaum/GeradeImRaum.html>
+* Visualisierung von 3x3 Determinaten
+  <http://kjuen.github.io/MathDemos/DetViewer/DetViewer.html>
 
 Der Source-Code zu den Demos ist im `gh-pages` branch:
 <https://github.com/kjuen/MathDemos/tree/gh-pages>
