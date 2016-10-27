@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="de">
+  <head>
+      <title>Harmonische Schwingung</title>
+      <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="../lib/jsxgraph.css" />
+      <script type="text/javascript"  src="../lib/jsxgraphcore.js"> </script>
+      <script type="text/javascript"
+               src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
+       </script>
+       <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            TeX: { equationNumbers: { autoNumber: "AMS" } },
+            tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+       </script>
+
+  </head>
+  <body>
+      <h1>Die Parameter einer harmonischen Schwingung </h1>
+      <p style="font-size:125%">
+          Eine harmonische Schwingung hat die Form
+          $
+          \displaystyle
+          y(t) = A \cos(\omega  t + \varphi)
+          $.
+          <br/>
+          Dabei ist
+          <ul style="font-size:125%">
+              <li>$A$ die Amplitude der Schwingung,</li>
+              <li>$\omega$ die Kreisfrequenz der Schwingung, </li>
+              <li>$\varphi$ die Phase der Schwingung.</li>
+          </ul>
+      </p>
+      <div id="box" class="jxgbox" style="width:750px; height:400px;"></div>
+      <script type="text/javascript" src="HarmOsz.js"></script>
+
+  </body>
+</html>

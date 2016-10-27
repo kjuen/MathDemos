@@ -116,6 +116,7 @@ zd.brd4.addChild(zd.brd2);   // damit das Board auf slider updates reagiert
 zd.brd2.create('text', [zd.taxisLen-0.5, 0.15, 't']);
 zd.brd2.create('text', [0.2,zd.boxHeight-0.15, 'y(t)']);
 zd.brd2.create('functiongraph',
+
                [zd.yfunc, 0, zd.taxisLen-1],
                {strokeColor:'blue', strokeWidth:2});
 zd.point2 = zd.brd2.create('point',
