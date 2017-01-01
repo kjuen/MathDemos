@@ -14,5 +14,7 @@ Einige Mathe-Demos:
   <http://kjuen.github.io/MathDemos/Mittelwertsatz/Mittelwertsatz.html>
 * Gerade im Raum:
   <http://kjuen.github.io/MathDemos/GeradeImRaum/GeradeImRaum.html>
+* Visualisierung der Lösung linearer 3x3 Gleichungssysteme
+  <http://kjuen.github.io/MathDemos/LGSViewer/LGSViewer.html>
 * Visualisierung von 3x3 Determinaten
   <http://kjuen.github.io/MathDemos/DetViewer/DetViewer.html>
