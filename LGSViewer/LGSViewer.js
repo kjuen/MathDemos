@@ -92,7 +92,10 @@ window.onload = function() {
     if(solpos !== undefined
        && lines[0].mesh.visible
        && lines[1].mesh.visible
-       && lines[2].mesh.visible) {
+       && lines[2].mesh.visible
+       && Math.abs(solpos.x) <= lgsCon.boundingBoxSize
+       && Math.abs(solpos.y) <= lgsCon.boundingBoxSize
+       && Math.abs(solpos.z) <= lgsCon.boundingBoxSize) {
       sol.visible = true;
       sol.position.copy(solpos);
     } else {
@@ -123,7 +126,6 @@ window.onload = function() {
 };
 
 //* Planes
-
 
 /**
  * creates the geometry of a frame with inner and outer dimensions centered
@@ -180,6 +182,7 @@ function BoundedPlane(idx) {
   // width, height, col, alpha=0.3, deltaPercent=2.5) {
   this.idx = idx;
   this.obj3D = new THREE.Object3D();
+  this.obj3D.matrixAutoUpdate = false;
   scene.add(this.obj3D);
 
   let innerSize = lgsCon.planeSize * lgsCon.innerScale;
@@ -209,16 +212,39 @@ function BoundedPlane(idx) {
 }
 
 
+/**
+ * update plane location according to a and b values.
+ */
 BoundedPlane.prototype.update = function() {
 
   const a = lgsCon.eqs[this.idx].getA();
   const b = lgsCon.eqs[this.idx].getB();
 
+  // rotate plane such that it is normal to a
   const theta = Math.acos(a.z/a.length());
-  const m = new THREE.Matrix4();
-  m.makeRotationAxis(new THREE.Vector3(-a.y, a.x, 0).normalize(), theta);
-  this.obj3D.rotation.setFromRotationMatrix(m);
-  this.obj3D.position.copy(a.clone().multiplyScalar(b/a.lengthSq()));
+  this.obj3D.matrix.makeRotationAxis(new THREE.Vector3(-a.y, a.x, 0).normalize(), theta);
+
+  // apply additional rotation around axis a such that the plane
+  // is aligned as good as possible with x- or y-axes:
+  const v = new THREE.Vector3(0,0,0);
+  // select axis along which to align
+  if(Math.abs(a.x) < Math.abs(a.y)) {
+    v.x = 1;
+  } else {
+    v.y = 1;
+  }
+  const w = v.clone();
+  v.applyMatrix4(this.obj3D.matrix);
+  const spat = a.clone().normalize().cross(v).dot(w);
+  const phiopt = Math.atan( spat / w.dot(v));
+
+  const arot = new THREE.Matrix4();
+  arot.makeRotationAxis(a.clone().normalize(), phiopt);
+  this.obj3D.matrix.premultiply(arot);
+
+  // finally set position
+  this.obj3D.matrix.setPosition(a.clone().multiplyScalar(b/a.lengthSq()));
+
   this.innerPlane.material.opacity = lgsCon.eqs[this.idx].Transparenz;
   if(lgsCon.eqs[this.idx].Transparenz < lgsCon.TranspTheshold) {
     this.obj3D.visible = false;
@@ -245,7 +271,7 @@ function IntersectionLine(idx1, idx2) {
   this.idx2 = idx2;
   let endPoints = calcIntersectionLine(lgsCon.eqs[idx1].getA(), lgsCon.eqs[idx1].getB(),
                                        lgsCon.eqs[idx2].getA(), lgsCon.eqs[idx2].getB(),
-                                       0.75* lgsCon.planeSize);
+                                       lgsCon.boundingBoxSize);
   if(endPoints.length == 2) {
     const tg = new THREE.TubeGeometry(new THREE.LineCurve3(endPoints[0], endPoints[1]),
                                       2, 0.05, 16, false);
@@ -259,10 +285,13 @@ function IntersectionLine(idx1, idx2) {
   }
 }
 
+/**
+ * update intersection line location according to a and b values.
+ */
 IntersectionLine.prototype.update = function() {
   let endPoints = calcIntersectionLine(lgsCon.eqs[this.idx1].getA(), lgsCon.eqs[this.idx1].getB(),
                                        lgsCon.eqs[this.idx2].getA(), lgsCon.eqs[this.idx2].getB(),
-                                       0.75 * lgsCon.planeSize);
+                                       lgsCon.boundingBoxSize);
   if(endPoints.length != 2) {
     return;
   }

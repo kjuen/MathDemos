@@ -7,6 +7,7 @@ let lgsCon = {
   Normalenvektoren: false,
   Achsenkreuz: false,
   planeSize: 10,
+  boundingBoxSize: 7.5,
   innerScale: 0.98,       // size of inner, transparent plane
   Transparenz : 0.3,
   TranspTheshold: 0.1,    // below this limit for Transparenz, planes will be set to invisible
