@@ -6,7 +6,25 @@
         <style>
          body   { color: white; }
          html    { background-color: black; }
+         .content {
+             display: flex;
+             flex-direction: row;
+         }
+         .content .explanation {
+             min-width: 30%;
+         }
         </style>
+        <style media='screen and (min-width: 50px) and (max-width: 800px)'>
+         .content {
+             display: flex;
+             flex-direction: column;
+         }
+         .content .canvas-container {
+             margin: 1em;
+             width: 90% !important; /* This is added to give users scrolling area*/
+         }
+        </style>
+
         <script type="text/javascript"
                 src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML">
         </script>
@@ -21,23 +39,24 @@
     <body>
 
         <h1 style="text-align: center">Eine Gerade im Raum</h1>
-        <div id="explanation">
-            Die Geradegleichung lautet
-            $
-            \vec{r}(t) = \vec{a} + t \vec{b}.
-            $
-            Dabei wird ...
-            <ul>
-                <li>der Vektor $\vec{a}$ blau dargestellt,</li>
-                <li>der Vektor $\vec{b}$ grün dargestellt.</li>
-            </ul>
-            Die gesamte Gerade ergibt sich, wenn $t$ alle reellen Zahlen durchläuft.
-            Für einen speziellen Wert von $t$ (siehe Slider) ist der Punkt $\vec{r}(t)$
-            als roter Punkt dargestellt.
+        <div class="content">
+            <div id="explanation" class="explanation">
+                Die Geradegleichung lautet
+                $
+                \vec{r}(t) = \vec{a} + t \vec{b}.
+                $
+                Dabei wird ...
+                <ul>
+                    <li>der Vektor $\vec{a}$ blau dargestellt,</li>
+                    <li>der Vektor $\vec{b}$ grün dargestellt.</li>
+                </ul>
+                Die gesamte Gerade ergibt sich, wenn $t$ alle reellen Zahlen durchläuft.
+                Für einen speziellen Wert von $t$ (siehe Slider) ist der Punkt $\vec{r}(t)$
+                als roter Punkt dargestellt.
+            </div>
+
+            <canvas class="canvas-container" id="graphics"></canvas>
         </div>
-
-        <canvas id="graphics"></canvas>
-
         <script type="text/javascript" src="../lib/dat.gui.min.js"></script>
         <script type="text/javascript" src="../lib/three.min.js"></script>
         <script type="text/javascript" src="../lib/OrbitControls.js"></script>
