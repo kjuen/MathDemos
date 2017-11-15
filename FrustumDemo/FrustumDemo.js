@@ -125,8 +125,7 @@ scene.add(cube);
 
 //* Mouse control and render loop
 const computerClock = new THREE.Clock();
-const controls = new THREE.TrackballControls(camera, canv1);
-// const controls2 = new THREE.TrackballControls(camera2, canv2);
+const controls = new THREE.OrbitControls(camera, canv1);
 controls.rotateSpeed = 3.0;
 function render() {
   requestAnimationFrame(render);
