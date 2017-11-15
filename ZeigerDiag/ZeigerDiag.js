@@ -46,7 +46,8 @@ zd.brd1.create('text', [zd.boxHeight-0.2, 0.15, 'x']);
 zd.brd1.create('text', [0.1,zd.boxHeight-0.15, 'y']);
 
 zd.brd1.create('circle', [[0,0], 1],
-               {strokeColor:'gray',
+               {fixed:true,
+                strokeColor:'gray',
                 strokeWidth:1,
                 strokeOpacity:0.75});
 

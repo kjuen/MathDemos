@@ -1,17 +1,15 @@
 /*global dat, THREE */
 
-// TODO: Pfeilspietze endet nicht genau am gewuenschten Punkt.
-
-var canvas = document.getElementById('graphics');
+const canvas = document.getElementById('graphics');
 //* Initialize webGL
-var renderer = new THREE.WebGLRenderer({canvas: canvas, antialias:true});
+const renderer = new THREE.WebGLRenderer({canvas: canvas, antialias:true});
 renderer.setSize( window.innerWidth, window.innerHeight );
 // document.body.appendChild( renderer.domElement );
 renderer.setClearColor('black');    // set background color
 
 // Create a new Three.js scene and a camera
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight,
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight,
                                           0.1, 1000 );
 camera.position.set(5,5,5);
 window.addEventListener('resize', function() {
@@ -22,17 +20,17 @@ window.addEventListener('resize', function() {
 
 
 // In render loop, position is set to camera position
-var light = new THREE.PointLight( 0xffffff );
+const light = new THREE.PointLight( 0xffffff );
 scene.add( light );
 scene.add(new THREE.AmbientLight(0xaaaaaa));
 
 
 
 //* General helper functions
-var makeTextLabel = function( message, fontsize, col )
+const makeTextLabel = function( message, fontsize, col )
 {
-  var canvas = document.createElement('canvas');
-  var context = canvas.getContext('2d');
+  const canvas = document.createElement('canvas');
+  const context = canvas.getContext('2d');
   context.font = "Bold " + fontsize + "px Arial";
 
   // get size data (height depends only on font size)
@@ -40,10 +38,10 @@ var makeTextLabel = function( message, fontsize, col )
   context.fillText( message, fontsize, fontsize);
 
   // canvas contents will be used for a texture
-  var texture = new THREE.Texture(canvas);
+  const texture = new THREE.Texture(canvas);
   texture.needsUpdate = true;
-  var spriteMaterial = new THREE.SpriteMaterial({ map: texture});
-  var sprite = new THREE.Sprite( spriteMaterial );
+  const spriteMaterial = new THREE.SpriteMaterial({ map: texture});
+  const sprite = new THREE.Sprite( spriteMaterial );
   return sprite;
 };
 
@@ -59,23 +57,23 @@ function createTubeArrow(opts) {
   opts.col = opts.col || new THREE.Color('darkslategray');
   if(opts.head === undefined) opts.head = true;
 
-  var mat = new THREE.MeshPhongMaterial({color: opts.col,
+  const mat = new THREE.MeshPhongMaterial({color: opts.col,
                                          specular: opts.col,
                                          side:THREE.DoubleSide});
-  var tubeGeo = new THREE.CylinderGeometry(opts.thick, opts.thick, opts.len, 32);
-  var tube = new THREE.Mesh(tubeGeo, mat);
+  const tubeGeo = new THREE.CylinderGeometry(opts.thick, opts.thick, opts.len, 32);
+  const tube = new THREE.Mesh(tubeGeo, mat);
   tube.position.y = opts.len/2;
-  var axis = new THREE.Object3D();
+  const axis = new THREE.Object3D();
   axis.add(tube);
   if(opts.head) {
-    var headGeo = new THREE.CylinderGeometry(0, 3*opts.thick, 6*opts.thick, 32);
-    var head = new THREE.Mesh(headGeo, mat);
+    const headGeo = new THREE.CylinderGeometry(0, 3*opts.thick, 6*opts.thick, 32);
+    const head = new THREE.Mesh(headGeo, mat);
     head.position.y = opts.len+opts.thick;
     axis.add(head);
   }
   if(opts.label !== undefined) {
     opts.labelSize = opts.labelSize || 48;
-    var sprite = makeTextLabel(opts.label, opts.labelSize, opts.col);
+    const sprite = makeTextLabel(opts.label, opts.labelSize, opts.col);
     sprite.position.y = opts.len;
     axis.add( sprite );
   }
@@ -95,8 +93,8 @@ function Vektor(vec, opts) {
 Vektor.prototype.update = function(pos) {
   this.opts.len = this.vec.length();
   scene.remove(this.arrow);
-  var rotAxis = new THREE.Vector3(this.vec.z, 0, -this.vec.x).normalize();
-  var rotAngle = Math.acos(this.vec.y / this.vec.length());
+  const rotAxis = new THREE.Vector3(this.vec.z, 0, -this.vec.x).normalize();
+  const rotAngle = Math.acos(this.vec.y / this.vec.length());
   this.mat.makeRotationAxis(rotAxis, rotAngle);
   if(pos !== undefined) {
     this.mat.setPosition(pos);
@@ -106,25 +104,25 @@ Vektor.prototype.update = function(pos) {
   scene.add(this.arrow);
 };
 
-var aVek = new Vektor(new THREE.Vector3(1,2,2), {thick:1/50, col:0x3030aa});
+const aVek = new Vektor(new THREE.Vector3(1,2,2), {thick:1/50, col:0x3030aa});
 aVek.update();
-var bVek = new Vektor(new THREE.Vector3(2,-1,0.1), {thick:1/50, col:0x30aa30});
+const bVek = new Vektor(new THREE.Vector3(2,-1,0.1), {thick:1/50, col:0x30aa30});
 bVek.update(aVek.vec);
 
 
 // Die eigentliche Gerade
 function createGerade() {
-  var gerade = new THREE.Mesh(new THREE.CylinderGeometry(1/75, 1/75, 100, 64),
+  const gerade = new THREE.Mesh(new THREE.CylinderGeometry(1/75, 1/75, 100, 64),
                               new THREE.MeshPhongMaterial({color: 0x801010,
                                                            specular: 0x801010}));
   gerade.applyMatrix(bVek.mat);
   return gerade;
 }
-var gerade = createGerade();
+let gerade = createGerade();
 scene.add(gerade);
 
 // Ein Punkt auf der Gerade
-var pkt = new THREE.Mesh(new THREE.SphereGeometry (0.05, 16, 16),
+let pkt = new THREE.Mesh(new THREE.SphereGeometry (0.05, 16, 16),
                          new THREE.MeshPhongMaterial({color:0xaa2020,
                                                       specular:0xaa2020,
                                                       shininess:5}));
@@ -139,29 +137,29 @@ function createWorldAxes(scene, len, thick) {
 
   if(len===undefined) len = 3;
   if(thick===undefined) thick = 1/50;
-  var labelSize = 48;
-  var col = new THREE.Color(0x303030);
+  const labelSize = 48;
+  const col = new THREE.Color(0x303030);
 
-  var worldAxes = new THREE.Object3D();
-  var yAxis = createTubeArrow({len: len, thick: thick, col: col,
-                               label: 'y', labelSize: labelSize});
+  const worldAxes = new THREE.Object3D();
+  const yAxis = createTubeArrow({len: len, thick: thick, col: col,
+                                 label: 'y', labelSize: labelSize});
   yAxis.position.y=-len/3;
   worldAxes.add(yAxis);
 
-  var zAxis = createTubeArrow({len: len, thick: thick, col: col,
-                               label: 'z', labelSize: labelSize});
+  const zAxis = createTubeArrow({len: len, thick: thick, col: col,
+                                 label: 'z', labelSize: labelSize});
   zAxis.rotation.x = Math.PI/2;
   zAxis.position.z = -len/3;
   worldAxes.add(zAxis);
 
-  var xAxis = createTubeArrow({len: len, thick: thick, col: col,
-                               label: 'x', labelSize: labelSize});
+  const xAxis = createTubeArrow({len: len, thick: thick, col: col,
+                                 label: 'x', labelSize: labelSize});
   xAxis.rotation.z = -Math.PI/2;
   xAxis.position.x = -len/3;
   worldAxes.add(xAxis);
   return worldAxes;
 }
-var worldAxes = createWorldAxes();
+const worldAxes = createWorldAxes();
 scene.add(worldAxes);
 
 
@@ -176,7 +174,7 @@ window.onload = function() {
     gerade = createGerade();
     scene.add(gerade);
 
-    var t = pkt.t;
+    const t = pkt.t;
     scene.remove(pkt);
     pkt = new THREE.Mesh(new THREE.SphereGeometry (0.05, 16, 16),
                          new THREE.MeshPhongMaterial({color:0xaa2020,
@@ -187,8 +185,8 @@ window.onload = function() {
     scene.add(pkt);
   }
 
-  var gui = new dat.GUI();
-  var vektorA = gui.addFolder('Vektor a');
+  const gui = new dat.GUI();
+  const vektorA = gui.addFolder('Vektor a');
   vektorA.add(aVek.vec, 'x', -3, 3).step(0.1).onChange(function() {
     aVek.update();
     updateB();
@@ -201,7 +199,7 @@ window.onload = function() {
     aVek.update();
     updateB();
   });
-  var vektorB = gui.addFolder('Vektor b');
+  const vektorB = gui.addFolder('Vektor b');
   vektorB.add(bVek.vec, 'x', -3, 3).step(0.1).onChange(function() {
     updateB();
   });
@@ -224,7 +222,7 @@ window.onload = function() {
 };
 
 //* Rendering
-var controls = new THREE.OrbitControls( camera, canvas );
+const controls = new THREE.OrbitControls( camera, canvas );
 function render() {
   requestAnimationFrame(render);
 
