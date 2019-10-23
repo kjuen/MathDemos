@@ -16,10 +16,10 @@ renderer2.setClearColor("black");
 
 
 const scene = new THREE.Scene();
-scene.add(new THREE.AxisHelper(2));
+scene.add(new THREE.AxesHelper(2));
 
 // main camera
-const camera = new THREE.PerspectiveCamera( 75, renderer.getSize().width / renderer.getSize().height,
+const camera = new THREE.PerspectiveCamera( 75, 1, // renderer.getSize().width / renderer.getSize().height,
                                             0.1, 100);
 camera.position.z = 20;
 
@@ -45,7 +45,7 @@ const camCon = {
   pos: {x: 10, y: 0, z: 0},
   lookat: {x: 0, y: 0, z: 0},
   up: {x: 0, y: 1, z: 0},
-  aspect: renderer2.getSize().width / renderer2.getSize().height
+  aspect: 2/5*window.innerWidth/window.innerHeight
 };
 
 function updateCam() {
@@ -89,12 +89,16 @@ window.addEventListener("load", function() {
  * update renderers and first camera when window is resized. Second camera isn't resized updated,
  * since its parameters are controlled by dat.gui
  */
-window.addEventListener("resize", function() {
-  renderer.setSize(4*window.innerWidth/9, 0.9*window.innerHeight);
-  renderer2.setSize(4*window.innerWidth/9, 0.9*window.innerHeight);
-  camera.aspect = renderer.getSize().width / renderer.getSize().height;
+const resizeCB = function() {
+  const w = 4*window.innerWidth/9;
+  const h = 0.9*window.innerHeight;
+  renderer.setSize(w, h);
+  renderer2.setSize(w, h);
+  camera.aspect = w/h;
   camera.updateProjectionMatrix();
-});
+};
+resizeCB();
+window.addEventListener("resize", resizeCB);
 
 
 
@@ -120,19 +124,19 @@ const cube = new THREE.Mesh(new THREE.BoxGeometry(1,1,1),
                             new THREE.MeshPhongMaterial({color: '#ccff10',
                                                          specular: '#0000ff'}));
 cube.position.set(-1,-3,2);
-scene.add(cube);
+                        scene.add(cube);
 
 
-//* Mouse control and render loop
-const computerClock = new THREE.Clock();
-const controls = new THREE.OrbitControls(camera, canv1);
-controls.rotateSpeed = 3.0;
-function render() {
-  requestAnimationFrame(render);
+                        //* Mouse control and render loop
+                        const computerClock = new THREE.Clock();
+                        const controls = new THREE.OrbitControls(camera, canv1);
+                        controls.rotateSpeed = 3.0;
+                        function render() {
+                          requestAnimationFrame(render);
 
-  controls.update(computerClock.getDelta());
-  // controls2.update(computerClock.getDelta());
-  renderer.render(scene, camera);
-  renderer2.render(scene, camera2);
-}
-render();
+                          controls.update(computerClock.getDelta());
+                          // controls2.update(computerClock.getDelta());
+                          renderer.render(scene, camera);
+                          renderer2.render(scene, camera2);
+                        }
+                        render();
