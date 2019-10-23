@@ -23,3 +23,7 @@ MathDemos
 
 * Visualierung Frustum-Geometrie einer Perspektivischen Kamera
   <http://kjuen.github.io/MathDemos/FrustumDemo/FrustumDemo.html>
+* Gleitender bzw. rollender Ball
+  <http://kjuen.github.io/MathDemos/RollingBall/RollingBall.html>
+* Euler- bzw. Tait-Bryan-Winkel
+  <http://kjuen.github.io/MathDemos/eulerdemo/eulerdemo.html>
