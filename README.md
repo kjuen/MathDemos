@@ -1,7 +1,7 @@
 MathDemos
 =========
 
-Einige Mathe-Demos:
+ **Mathe-Demos:**
 
 * Vektorielle Ableitung am Beispiel der Zykloide:
   <http://kjuen.github.io/MathDemos/Zykloide/Ableitung_Zykloide.html>
@@ -19,7 +19,7 @@ Einige Mathe-Demos:
 * Visualisierung von 3x3 Determinaten
   <http://kjuen.github.io/MathDemos/DetViewer/DetViewer.html>
 
-Andere Demos:
+**3D-Grafik-Demos:**
 
 * Visualierung Frustum-Geometrie einer Perspektivischen Kamera
   <http://kjuen.github.io/MathDemos/FrustumDemo/FrustumDemo.html>
