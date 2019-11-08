@@ -75,19 +75,18 @@ const fricConst = 1;
 function render() {
   requestAnimationFrame(render);
 
-  const dt = computerClock.getDelta();  // must be before call to getElapsedTime, otherwise dt=0 !!!
-  // Translation matrix:
+  const dt = computerClock.getDelta();
+  // calculate translation:
   currentPos.add(ballSpeed.clone().multiplyScalar(dt));
 
   if(datCrtl.roll) {
     const dR = new THREE.Matrix4();
     dR.makeRotationAxis(rotAxis, omega*dt);
     ball.matrix.premultiply(dR);
-    ball.matrix.setPosition(currentPos);
-  } else {
-    // just translation
-    ball.matrix.setPosition(currentPos);
   }
+  // add translation to matrix AFTER rotation
+  ball.matrix.setPosition(currentPos);
+
 
   if(datCrtl.reflect) {
     if((currentPos.x + ballRadius)> floorX/2) {
