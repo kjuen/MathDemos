@@ -21,7 +21,7 @@ scene.add(new THREE.AxesHelper(2));
 // main camera
 const camera = new THREE.PerspectiveCamera( 75, 1, // renderer.getSize().width / renderer.getSize().height,
                                             0.1, 100);
-camera.position.z = 20;
+camera.position.set(15,1,-3);
 
 
 
@@ -115,8 +115,10 @@ scene.add(spotLight);
 
 //* Place some objects
 const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.75, 32, 32),
-                              new THREE.MeshPhongMaterial({color: '#ccaa40',
-                                                           specular: '#aa4040'}));
+                              new THREE.MeshPhongMaterial({
+                                emissive:'#777700',
+                                color: '#ccaa40',
+                                specular: '#aa4040'}));
 sphere.position.set(3,3,3);
 scene.add(sphere);
 
@@ -124,19 +126,41 @@ const cube = new THREE.Mesh(new THREE.BoxGeometry(1,1,1),
                             new THREE.MeshPhongMaterial({color: '#ccff10',
                                                          specular: '#0000ff'}));
 cube.position.set(-1,-3,2);
-                        scene.add(cube);
+scene.add(cube);
+
+const cylinder = new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,0.75,32),
+                                new THREE.MeshPhongMaterial({
+                                  emissive: '#660000',
+                                  color: '#cc5555',
+                                  specular: '#0000ff'}));
+cylinder.position.x = 3;
+cylinder.rotation.z = -0.3;
+cylinder.rotation.x = 0.1;
+scene.add(cylinder);
+
+const torus = new THREE.Mesh(new THREE.TorusGeometry(0.25, 0.1, 32, 32),
+                             new THREE.MeshPhongMaterial({
+                               emissive: '#006600',
+                               color: '#00aa00',
+                               specular: '#00ff00'}));
+torus.position.x = 12;
+torus.rotation.x = 1;
+torus.rotation.y = 1;
+torus.rotation.z = 0.4;
+scene.add(torus);
 
 
-                        //* Mouse control and render loop
-                        const computerClock = new THREE.Clock();
-                        const controls = new THREE.OrbitControls(camera, canv1);
-                        controls.rotateSpeed = 3.0;
-                        function render() {
-                          requestAnimationFrame(render);
 
-                          controls.update(computerClock.getDelta());
-                          // controls2.update(computerClock.getDelta());
-                          renderer.render(scene, camera);
-                          renderer2.render(scene, camera2);
-                        }
-                        render();
+//* Mouse control and render loop
+const computerClock = new THREE.Clock();
+const controls = new THREE.OrbitControls(camera, canv1);
+controls.rotateSpeed = 3.0;
+function render() {
+  requestAnimationFrame(render);
+
+  controls.update(computerClock.getDelta());
+  // controls2.update(computerClock.getDelta());
+  renderer.render(scene, camera);
+  renderer2.render(scene, camera2);
+}
+render();
