@@ -4,26 +4,26 @@ MathDemos
  **Mathe-Demos:**
 
 * Vektorielle Ableitung am Beispiel der Zykloide:
-  <http://kjuen.github.io/MathDemos/Zykloide/Ableitung_Zykloide.html>
+  <https://kjuen.github.io/MathDemos/Zykloide/Ableitung_Zykloide.html>
 * Das Zeigerdiagramm in der komplexen Ebene:
-  <http://kjuen.github.io/MathDemos/ZeigerDiag/ZeigerDiag.html>
+  <https://kjuen.github.io/MathDemos/ZeigerDiag/ZeigerDiag.html>
 * Parameter einer harmonischen Schwingung:
-  <http://kjuen.github.io/MathDemos/HarmOsz/HarmOsz.html>
+  <https://kjuen.github.io/MathDemos/HarmOsz/HarmOsz.html>
 * Mittelwertsatz der Differentialrechnung als Satz von Taylor
   niedrigster Ordnung:
-  <http://kjuen.github.io/MathDemos/Mittelwertsatz/Mittelwertsatz.html>
+  <https://kjuen.github.io/MathDemos/Mittelwertsatz/Mittelwertsatz.html>
 * Gerade im Raum:
-  <http://kjuen.github.io/MathDemos/GeradeImRaum/GeradeImRaum.html>
+  <https://kjuen.github.io/MathDemos/GeradeImRaum/GeradeImRaum.html>
 * Visualisierung der Lösung linearer 3x3 Gleichungssysteme:
-  <http://kjuen.github.io/MathDemos/LGSViewer/LGSViewer.html>
+  <https://kjuen.github.io/MathDemos/LGSViewer/LGSViewer.html>
 * Visualisierung von 3x3 Determinaten:
-  <http://kjuen.github.io/MathDemos/DetViewer/DetViewer.html>
+  <https://kjuen.github.io/MathDemos/DetViewer/DetViewer.html>
 
 **3D-Grafik-Demos:**
 
 * Visualierung Frustum-Geometrie einer Perspektivischen Kamera:
-  <http://kjuen.github.io/MathDemos/FrustumDemo/FrustumDemo.html>
+  <https://kjuen.github.io/MathDemos/FrustumDemo/FrustumDemo.html>
 * Gleitender bzw. rollender Ball:
-  <http://kjuen.github.io/MathDemos/RollingBall/RollingBall.html>
+  <https://kjuen.github.io/MathDemos/RollingBall/RollingBall.html>
 * Euler- bzw. Tait-Bryan-Winkel:
-  <http://kjuen.github.io/MathDemos/eulerdemo/eulerdemo.html>
+  <https://kjuen.github.io/MathDemos/eulerdemo/eulerdemo.html>
