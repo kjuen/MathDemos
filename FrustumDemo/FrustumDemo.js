@@ -45,7 +45,8 @@ const camCon = {
   pos: {x: 10, y: 0, z: 0},
   lookat: {x: 0, y: 0, z: 0},
   up: {x: 0, y: 1, z: 0},
-  aspect: 2/5*window.innerWidth/window.innerHeight
+  aspect: 2/5*window.innerWidth/window.innerHeight,
+  useMouse: true
 };
 
 function updateCam() {
@@ -66,19 +67,23 @@ updateCam();
 
 window.addEventListener("load", function() {
   const gui = new dat.GUI();
-  gui.add(camCon, 'fov', 25, 120).onChange(updateCam);
-  gui.add(camCon, 'aspect', 0.5,1.5).onChange(updateCam);
-  gui.add(camCon, 'near', 0.1, 5).onChange(updateCam);
-  gui.add(camCon, 'far', 5, 25).onChange(updateCam);
-  const pos = gui.addFolder('Position');
+  const camParamFolder = gui.addFolder('Camera Parameters');
+  camParamFolder.add(camCon, 'fov', 25, 120).onChange(updateCam);
+  camParamFolder.add(camCon, 'aspect', 0.5,1.5).onChange(updateCam);
+  camParamFolder.add(camCon, 'near', 0.1, 10).onChange(updateCam);
+  camParamFolder.add(camCon, 'far', 5, 25).onChange(updateCam);
+  const camPosOrientationFolder = gui.addFolder('Camera Position and Orientation');
+  camPosOrientationFolder.add(camCon, 'useMouse');
+
+  const pos = camPosOrientationFolder.addFolder('Position');
   pos.add(camCon.pos, 'x', -20, 20).onChange(updateCam);
   pos.add(camCon.pos, 'y', -20, 20).onChange(updateCam);
   pos.add(camCon.pos, 'z', -20, 20).onChange(updateCam);
-  const lookAt = gui.addFolder('Look at');
+  const lookAt = camPosOrientationFolder.addFolder('Look at');
   lookAt.add(camCon.lookat, 'x', -20, 20).onChange(updateCam);
   lookAt.add(camCon.lookat, 'y', -20, 20).onChange(updateCam);
   lookAt.add(camCon.lookat, 'z', -20, 20).onChange(updateCam);
-  const up = gui.addFolder('Up');
+  const up = camPosOrientationFolder.addFolder('Up');
   up.add(camCon.up, 'x', -5, 5).onChange(updateCam);
   up.add(camCon.up, 'y', -5, 5).onChange(updateCam);
   up.add(camCon.up, 'z', -5, 5).onChange(updateCam);
@@ -155,12 +160,15 @@ scene.add(torus);
 const computerClock = new THREE.Clock();
 const controls = new THREE.OrbitControls(camera, canv1);
 controls.rotateSpeed = 3.0;
+const controls2 = new THREE.TrackballControls(camera2, canv2);
 function render() {
   requestAnimationFrame(render);
 
   controls.update(computerClock.getDelta());
-  // controls2.update(computerClock.getDelta());
+  if(camCon.useMouse) {
+    controls2.update(computerClock.getDelta());
+  }
   renderer.render(scene, camera);
   renderer2.render(scene, camera2);
-}
-render();
+  }
+  render();
