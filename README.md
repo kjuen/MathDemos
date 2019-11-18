@@ -25,6 +25,8 @@ MathDemos
   <https://kjuen.github.io/MathDemos/RollingBall/RollingBall.html>
 * Euler- bzw. Tait-Bryan-Winkel:
   <https://kjuen.github.io/MathDemos/eulerdemo/eulerdemo.html>
+* Vergleich von three.js-Materialien:
+  <https://kjuen.github.io/MathDemos/MaterialComparison/MaterialComparison.html>
 
 
 
