@@ -7,7 +7,7 @@
 // this needs to be at top of file, since the parameters are used by the rest of the app
 
 const mouseCon = {
-  SynchronizeMouse: true
+  SyncMouse: true
 };
 
 const lightCon = {
@@ -64,33 +64,86 @@ function MaterialController() {
   };
 }
 const leftMatCon = new MaterialController();
+leftMatCon.ShowSecondCanvas = false;
 const rightMatCon = new MaterialController();
 
+const shadowCon = {
+  ShowShadow: false,
+  ShadowCamera: false,
+  SecondShadowPlane: false,
+  MapSizeExp: 8
+};
 
 // * Setting up two renderers and two scenes for left (1) and right (2) canvases
-const canv1 = document.getElementById("canv1");
-const renderer1 = new THREE.WebGLRenderer({canvas:canv1,
-                                           antialias:true});
-renderer1.setSize(4*window.innerWidth/9, 0.9*window.innerHeight);
+
+let singleCanvHeight = 0.9*window.innerHeight;
+let singleCanvWidth = 0.4*window.innerWidth;
+
+const canvTable = document.getElementById("canvTable");
+const tdLeft = document.createElement("td");
+canvTable.appendChild(tdLeft);
+const tdRight = document.createElement("td");
+
+const renderer1 = new THREE.WebGLRenderer({antialias:true});
+tdLeft.appendChild( renderer1.domElement );
 renderer1.setClearColor(lightCon.Background);
 
-const canv2 = document.getElementById("canv2");
-const renderer2 = new THREE.WebGLRenderer({canvas:canv2,
-                                           antialias:true});
-renderer2.setSize(4*window.innerWidth/9, 0.9*window.innerHeight);
+const renderer2 = new THREE.WebGLRenderer({antialias:true});
+tdRight.appendChild( renderer2.domElement );
 renderer2.setClearColor(lightCon.Background);
 
 const scene1 = new THREE.Scene();
 const scene2 = new THREE.Scene();
 
 // Cameras
-const camera1 = new THREE.PerspectiveCamera( 75, 1, 0.1, 100);
+const camera1 = new THREE.PerspectiveCamera( 75, singleCanvWidth / singleCanvHeight, 0.1, 100);
 camera1.position.set(1.5,0.8,2);
 let camera2 = camera1.clone();
-const controls1 = new THREE.OrbitControls(camera1, canv1);
+const controls1 = new THREE.OrbitControls(camera1,renderer1.domElement );
 controls1.rotateSpeed = 3.0;
-let controls2 = new THREE.OrbitControls(camera2, canv2);
+let controls2 = new THREE.OrbitControls(camera2, renderer2.domElement);
 controls2.rotateSpeed = 3.0;
+
+
+function updateCanvSize() {
+  if(canvTable.children.length === 1) {
+    renderer1.setSize(2 * singleCanvWidth, singleCanvHeight);
+    camera1.aspect = 2 * singleCanvWidth / singleCanvHeight;
+    camera1.updateProjectionMatrix();
+  } else if(canvTable.children.length === 2) {
+    renderer1.setSize(singleCanvWidth, singleCanvHeight);
+    camera1.aspect = singleCanvWidth / singleCanvHeight;
+    camera1.updateProjectionMatrix();
+    renderer2.setSize(singleCanvWidth, singleCanvHeight);
+    camera2.aspect = singleCanvWidth / singleCanvHeight;
+    camera2.updateProjectionMatrix();
+  }
+}
+updateCanvSize();
+
+
+
+function addRightCanvas() {
+  if(canvTable.children.length === 1) {
+    canvTable.appendChild(tdRight);
+  }
+  updateCanvSize();
+}
+
+function removeRightCanvas() {
+  if(canvTable.children.length === 2) {
+    canvTable.removeChild(tdRight);
+  }
+  updateCanvSize();
+}
+
+window.addEventListener("resize", () => {
+  singleCanvHeight = 0.9*window.innerHeight;
+  singleCanvWidth = 0.4*window.innerWidth;
+  updateCanvSize();
+});
+
+
 
 // * Light
 // it is not possible to add one single light to both scenes. Therefore, we have to lights and always have to make sure
@@ -103,6 +156,17 @@ scene2.add(ambientLight2);
 
 const spotLight1 = new THREE.SpotLight(lightCon.SpotLight);
 scene1.add(spotLight1);
+spotLight1.castShadow = true;
+spotLight1.shadow.camera.near = 0.1;
+spotLight1.shadow.camera.fov = 60;
+spotLight1.shadow.camera.far =100;
+// number of shadow 'pixels'
+spotLight1.shadow.mapSize.width = 2**shadowCon.MapSizeExp;
+spotLight1.shadow.mapSize.height = 2**shadowCon.MapSizeExp;
+const shadowCamHelper = new THREE.CameraHelper(spotLight1.shadow.camera);
+shadowCamHelper.material.linewidth = 2;
+scene1.add(shadowCamHelper);
+
 const spotLight2 = spotLight1.clone();
 scene2.add(spotLight2);
 
@@ -127,12 +191,7 @@ lightPosCB();
 window.addEventListener("load", function() {
   const gui = new dat.GUI();
 
-  gui.add(mouseCon, 'SynchronizeMouse').onChange(flag => {
-    if(!flag) {
-      controls2 = new THREE.OrbitControls(camera2, canv2);
-      controls2.rotateSpeed = 3.0;
-    }
-  });
+
 
   gui.addColor(lightCon, 'Background').onChange(c => {
     renderer1.setClearColor(c);
@@ -155,7 +214,7 @@ window.addEventListener("load", function() {
     lightBulb2.visible = flag;
   });
 
-  const leftMatFolder = gui.addFolder('Material left');
+  const leftMatFolder = gui.addFolder('Material');
   leftMatFolder.add(leftMatCon, 'MaterialType', [PhongMatType, StdMatType]).onChange(matType => {
     teapot1UpdateMaterial();
     // this is not very elegant. How to simplify this??
@@ -184,7 +243,28 @@ window.addEventListener("load", function() {
     leftStdFolder.hide();
   }
 
-  const rightMatFolder = gui.addFolder('Material right');
+
+  gui.add(leftMatCon, 'ShowSecondCanvas').onChange(flag => {
+    if(flag) {
+      addRightCanvas();
+      rightMatFolder.show();
+    } else {
+      removeRightCanvas();
+      rightMatFolder.hide();
+    }
+  });
+
+
+
+  const rightMatFolder = gui.addFolder('Second Canvas');
+  rightMatFolder.hide();
+  rightMatFolder.add(mouseCon, 'SyncMouse').onChange(flag => {
+    if(!flag) {
+      controls2 = new THREE.OrbitControls(camera2, renderer2.domElement);
+      controls2.rotateSpeed = 3.0;
+    }
+  });
+
   rightMatFolder.add(rightMatCon, 'MaterialType', [PhongMatType, StdMatType]).onChange(matType => {
     teapot2UpdateMaterial();
     // this is not very elegant. How to simplify this??
@@ -202,7 +282,7 @@ window.addEventListener("load", function() {
   const rightPhongFolder = rightMatFolder.addFolder(PhongMatType);
   rightPhongFolder.addColor(rightMatCon, 'Diffuse').onChange(teapot2UpdateMaterial);
   rightPhongFolder.addColor(rightMatCon, 'Specular').onChange(teapot2UpdateMaterial);
-  rightPhongFolder.add(rightMatCon, 'Shininess', 0, 100).onChange(teapot2UpdateMaterial);
+                        rightPhongFolder.add(rightMatCon, 'Shininess', 0, 100).onChange(teapot2UpdateMaterial);
   if(rightMatCon.MaterialType !== PhongMatType) {
     rightPhongFolder.hide();
   }
@@ -213,27 +293,66 @@ window.addEventListener("load", function() {
   if(rightMatCon.MaterialType !== StdMatType) {
     rightStdFolder.hide();
   }
+
+  gui.add(shadowCon, 'ShowShadow').onChange(flag => {
+    flag ? shadowFolder.show() : shadowFolder.hide();
+    updateShadowFlags();
+  });
+
+  const shadowFolder = gui.addFolder('Shadow');
+  shadowFolder.hide();
+  shadowFolder.add(shadowCon, 'ShadowCamera').onChange(updateShadowFlags);
+  // Updating mapsize doesn't work. How to fix this?
+  // shadowFolder.add(shadowCon, 'MapSizeExp', 6, 10).step(1).onChange(exp=> {
+  //   const ms = 2**exp;
+  //   console.log('ms=', ms);
+
+  //   spotLight1.shadow.mapSize.x = ms;
+  //   spotLight1.shadow.mapSize.y = ms;
+  //   renderer1.shadowMap.needsUpdate = true;
+  //   spotLight1.shadow.camera.updateProjectionMatrix();
+  //   spotLight1.shadow.updateMatrices(spotLight1);
+  // });
+  shadowFolder.add(shadowCon, 'SecondShadowPlane').onChange(updateShadowFlags);
 });
 
 //* Add teapots
-
-const tmpMat = new THREE.MeshPhongMaterial({
-  emissive:'#000000',
-  color: '#ccaa40',
-  specular: '#000000'});
 const teapotGeo = new THREE.TeapotBufferGeometry(0.5, 10, true, true);
 const teapot1 = new THREE.Mesh(teapotGeo, leftMatCon.getMat());
+teapot1.castShadow = true;
 scene1.add(teapot1);
 function teapot1UpdateMaterial() {
   teapot1.material = leftMatCon.getMat();
-};
+}
 
 const teapot2 = new THREE.Mesh(teapotGeo, rightMatCon.getMat());
 scene2.add(teapot2);
 function teapot2UpdateMaterial() {
   teapot2.material = rightMatCon.getMat();
-};
+}
 
+// transparent ground plane for shadows
+const col = new THREE.Color(1,1,1);   // white
+const ground = new THREE.Mesh(new THREE.PlaneGeometry(8,8),
+                              new THREE.MeshPhongMaterial({side: THREE.DoubleSide,
+                                                           color:col}));
+ground.position.z = -2;
+ground.receiveShadow=true;
+scene1.add(ground);
+
+// Another shadow receiving plane
+const gr2 = ground.clone();
+gr2.position.z = -10;
+scene1.add(gr2);
+
+// turn on, off all shadow functionality
+function updateShadowFlags() {
+  renderer1.shadowMap.enabled=shadowCon.ShowShadow;  // shadow only on left canvas
+  shadowCamHelper.visible=shadowCon.ShadowCamera;
+  ground.visible = shadowCon.ShowShadow;
+  gr2.visible = shadowCon.SecondShadowPlane;
+}
+updateShadowFlags();
 
 
 
@@ -243,27 +362,10 @@ function render() {
   requestAnimationFrame(render);
   controls1.update(computerClock.getDelta());
   controls2.update(computerClock.getDelta());
-  if(mouseCon.SynchronizeMouse) {
+  if(mouseCon.SyncMouse) {
     camera2 = camera1.clone();
   }
   renderer1.render(scene1, camera1);
   renderer2.render(scene2, camera2);
 }
 render();
-
-
-/**
- * update renderers and camera when window is resized.
- */
-const resizeCB = function() {
-  const w = 4*window.innerWidth/9;
-  const h = 0.9*window.innerHeight;
-  renderer1.setSize(w, h);
-  renderer2.setSize(w, h);
-  camera1.aspect = w/h;
-  camera1.updateProjectionMatrix();
-  camera2.aspect = w/h;
-  camera2.updateProjectionMatrix();
-};
-resizeCB();
-window.addEventListener("resize", resizeCB);
