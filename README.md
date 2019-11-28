@@ -29,3 +29,5 @@ MathDemos
   <https://kjuen.github.io/MathDemos/eulerdemo/eulerdemo.html>
 * Vergleich von three.js-Materialien:
   <https://kjuen.github.io/MathDemos/MaterialComparison/MaterialComparison.html>
+* Shading Demo:
+  <https://kjuen.github.io/MathDemos/ShadingDemo/ShadingDemo.html>
