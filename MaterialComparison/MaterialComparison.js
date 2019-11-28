@@ -30,9 +30,12 @@ const lightCon = {
 
 const PhongMatType = 'Phong Material';
 const StdMatType = 'Standard Material';
+const LambertMatType = 'Lambert Material';
 function MaterialController() {
   this.MaterialType = PhongMatType;
   this.Emissive = '#000000';
+  this.flatShading = false,
+  this.wireframe = false,
   // Phong Material Parameter
   this.Diffuse = '#ccaa40';
   this.Specular = '#000000';
@@ -46,18 +49,25 @@ function MaterialController() {
   this.getMat = function() {
     if(this.MaterialType === PhongMatType) {
       return new THREE.MeshPhongMaterial({side:THREE.DoubleSide,
-                                          flatShading:false,
+                                          flatShading:this.flatShading,
                                           emissive:this.Emissive,
                                           color:this.Diffuse,
                                           specular:this.Specular,
-                                          shininess:this.Shininess});
+                                          shininess:this.Shininess,
+                                          wireframe:this.wireframe});
     } else if(this.MaterialType === StdMatType) {
       return new THREE.MeshPhysicalMaterial({side:THREE.DoubleSide,
-                                             flatShading:false,
+                                             flatShading:this.flatShading,
                                              emissive:this.Emissive,
                                              color:this.Color,
                                              metalness:this.Metalness,
-                                             roughness:this.Roughness});
+                                             roughness:this.Roughness,
+                                             wireframe:this.wireframe});
+    } else if(this.MaterialType === LambertMatType) {
+      return new THREE.MeshLambertMaterial({side:THREE.DoubleSide,
+                                            flatShading:false,
+                                            emissive:this.Emissive,
+                                            color:this.Diffuse});
     } else {
       throw Error(this.MaterialType + ": unknown material");
     }
@@ -215,19 +225,28 @@ window.addEventListener("load", function() {
   });
 
   const leftMatFolder = gui.addFolder('Material');
-  leftMatFolder.add(leftMatCon, 'MaterialType', [PhongMatType, StdMatType]).onChange(matType => {
+  leftMatFolder.add(leftMatCon, 'MaterialType', [PhongMatType, StdMatType, LambertMatType]).onChange(matType => {
     teapot1UpdateMaterial();
     // this is not very elegant. How to simplify this??
     if(matType === PhongMatType) {
       leftPhongFolder.show();
       leftStdFolder.hide();
+      leftLambertFolder.hide();
     }
     if(matType === StdMatType) {
       leftPhongFolder.hide();
       leftStdFolder.show();
+      leftLambertFolder.hide();
+    }
+    if(matType === LambertMatType) {
+      leftPhongFolder.hide();
+      leftStdFolder.hide();
+      leftLambertFolder.show();
     }
   });
   leftMatFolder.addColor(leftMatCon, 'Emissive').onChange(teapot1UpdateMaterial);
+  leftMatFolder.add(leftMatCon, 'flatShading').onChange(teapot1UpdateMaterial);
+  leftMatFolder.add(leftMatCon, 'wireframe').onChange(teapot1UpdateMaterial);
   const leftPhongFolder = leftMatFolder.addFolder(PhongMatType);
   leftPhongFolder.addColor(leftMatCon, 'Diffuse').onChange(teapot1UpdateMaterial);
   leftPhongFolder.addColor(leftMatCon, 'Specular').onChange(teapot1UpdateMaterial);
@@ -242,7 +261,11 @@ window.addEventListener("load", function() {
   if(leftMatCon.MaterialType !== StdMatType) {
     leftStdFolder.hide();
   }
-
+  const leftLambertFolder = leftMatFolder.addFolder(LambertMatType);
+  leftLambertFolder.addColor(leftMatCon, 'Diffuse').onChange(teapot1UpdateMaterial);
+  if(leftMatCon.MaterialType !== LambertMatType) {
+    leftLambertFolder.hide();
+  }
 
   gui.add(leftMatCon, 'ShowSecondCanvas').onChange(flag => {
     if(flag) {
