@@ -9,7 +9,8 @@ const shaderCon = {
   FlatShading: false,
   FlatVertexNormals: false,
   ShowFaceNormals:false,
-  ShowVertexNormals:false
+  ShowVertexNormals:false,
+  SphereSegments: 32
 };
 
 
@@ -47,16 +48,16 @@ const mat = new THREE.MeshPhongMaterial({color: 'blue',
                                          wireframe:shaderCon.Wireframe} );
 
 // Create sphere
-const sphere = new THREE.Mesh(new THREE.SphereGeometry( 0.75, 8,8), mat);
+const sphere = new THREE.Mesh(new THREE.SphereGeometry( 0.75, shaderCon.SphereSegments, shaderCon.SphereSegments), mat);
 scene.add(sphere);
 // various normal vectors
 const sphereFaceNormals = new THREE.FaceNormalsHelper( sphere, 0.1, 0x00ff00, 2 );
 scene.add(sphereFaceNormals);
 sphere.geometry.computeFlatVertexNormals();
-const sphereFlatVertexNormals = new THREE.VertexNormalsHelper( sphere, 0.1, 0x00ff00, 2 );
+const sphereFlatVertexNormals = new THREE.VertexNormalsHelper( sphere, 0.1, 0xff0000, 2 );
 scene.add(sphereFlatVertexNormals);
 sphere.geometry.computeVertexNormals();
-const sphereSmoothVertexNormals = new THREE.VertexNormalsHelper( sphere, 0.1, 0x00ff00, 2 );
+const sphereSmoothVertexNormals = new THREE.VertexNormalsHelper( sphere, 0.1, 0xff0000, 2 );
 scene.add(sphereSmoothVertexNormals);
 
 
@@ -67,10 +68,10 @@ scene.add(box);
 const boxFaceNormals = new THREE.FaceNormalsHelper( box, 0.1, 0x00ff00, 2 );
 scene.add(boxFaceNormals);
 box.geometry.computeFlatVertexNormals();
-const boxFlatVertexNormals = new THREE.VertexNormalsHelper( box, 0.15, 0x00ff00, 2 );
+const boxFlatVertexNormals = new THREE.VertexNormalsHelper( box, 0.15, 0xff0000, 2 );
 scene.add(boxFlatVertexNormals);
 box.geometry.computeVertexNormals();
-const boxSmoothVertexNormals = new THREE.VertexNormalsHelper( box, 0.15, 0x00ff00, 2 );
+const boxSmoothVertexNormals = new THREE.VertexNormalsHelper( box, 0.15, 0xff0000, 2 );
 scene.add(boxSmoothVertexNormals);
 
 
@@ -114,6 +115,7 @@ window.addEventListener("load", function() {
   gui.add(shaderCon, 'FlatVertexNormals').onChange(updateSettings);
   gui.add(shaderCon, 'ShowFaceNormals').onChange(updateSettings);
   gui.add(shaderCon, 'ShowVertexNormals').onChange(updateSettings);
+  // gui.add(shaderCon, 'SphereSegments', 8, 64);
 
 });
 
