@@ -10,7 +10,7 @@ const shaderCon = {
   FlatVertexNormals: false,
   ShowFaceNormals:false,
   ShowVertexNormals:false,
-  SphereSegments: 32
+  SphereSegments: 8
 };
 
 
