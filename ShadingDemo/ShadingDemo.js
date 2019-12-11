@@ -1,5 +1,8 @@
 /* global dat */
 
+import * as THREE from "../lib/build/three.module.js";
+import { TrackballControls } from "../lib/examples/jsm/controls/TrackballControls.js";
+
 const SphereTag = "Sphere";
 const BoxTag = "Box";
 
@@ -121,7 +124,7 @@ window.addEventListener("load", function() {
 
 
 // Draw everything
-const controls = new THREE.TrackballControls( camera, canvas );
+const controls = new TrackballControls( camera, canvas );
 function render() {
   requestAnimationFrame(render);
   spotLight.position.copy(camera.position);
@@ -130,3 +133,6 @@ function render() {
   renderer.render(scene, camera);
 }
 render();
+
+
+export {shaderCon};
