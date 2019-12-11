@@ -1,6 +1,10 @@
 /* global dat */
 "use strict";
 
+import * as THREE from "../lib/build/three.module.js";
+import {TrackballControls} from "../lib/examples/jsm/controls/TrackballControls.js";
+import {OrbitControls} from "../lib/examples/jsm/controls/OrbitControls.js";
+
 //* Setting up renderer and scene
 const canv1 = document.getElementById("canv1");
 const renderer = new THREE.WebGLRenderer({canvas:canv1,
@@ -158,9 +162,9 @@ scene.add(torus);
 
 //* Mouse control and render loop
 const computerClock = new THREE.Clock();
-const controls = new THREE.OrbitControls(camera, canv1);
+const controls = new OrbitControls(camera, canv1);
 controls.rotateSpeed = 3.0;
-const controls2 = new THREE.TrackballControls(camera2, canv2);
+const controls2 = new TrackballControls(camera2, canv2);
 function render() {
   requestAnimationFrame(render);
 

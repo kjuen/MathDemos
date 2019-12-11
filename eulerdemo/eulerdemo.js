@@ -1,9 +1,10 @@
-// "use strict";
-
 /*global dat */
 // Euler angle demo
 
+"use strict";
 
+import * as THREE from "../lib/build/three.module.js";
+import {OrbitControls} from "../lib/examples/jsm/controls/OrbitControls.js";
 
 //* Initialize webGL with camera and lights
 const canvas = document.getElementById("mycanvas");
@@ -290,7 +291,7 @@ window.addEventListener("load",function() {
 });
 
 //* Render loop
-const controls = new THREE.OrbitControls( camera, canvas );
+const controls = new OrbitControls( camera, canvas );
 controls.zoomSpeed = 1/2;
 
 function render() {

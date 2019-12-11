@@ -1,5 +1,9 @@
 /*global dat, THREE */
 
+
+import * as THREE from "../lib/build/three.module.js";
+import {TrackballControls} from "../lib/examples/jsm/controls/TrackballControls.js";
+
 //* Initialize webGL
 const canvas = document.getElementById("myCanvas");
 const renderer = new THREE.WebGLRenderer({canvas:canvas});
@@ -65,7 +69,7 @@ ball.matrix.setPosition(currentPos);
 
 //* Render loop
 const computerClock = new THREE.Clock();
-const controls = new THREE.TrackballControls( camera );
+const controls = new TrackballControls( camera );
 controls.dynamicDampingFactor = 1;
 controls.rotateSpeed = 3.0;
 controls.zoomSpeed = 2;

@@ -2,6 +2,10 @@
 
 "use strict";
 
+import * as THREE from "../lib/build/three.module.js";
+import {OrbitControls} from "../lib/examples/jsm/controls/OrbitControls.js";
+import {TeapotBufferGeometry} from "../lib/examples/jsm/geometries/TeapotBufferGeometry.js";
+
 
 // * Controller objects for dat.gui
 // this needs to be at top of file, since the parameters are used by the rest of the app
@@ -109,9 +113,9 @@ const scene2 = new THREE.Scene();
 const camera1 = new THREE.PerspectiveCamera( 75, singleCanvWidth / singleCanvHeight, 0.1, 100);
 camera1.position.set(1.5,0.8,2);
 let camera2 = camera1.clone();
-const controls1 = new THREE.OrbitControls(camera1,renderer1.domElement );
+const controls1 = new OrbitControls(camera1,renderer1.domElement );
 controls1.rotateSpeed = 3.0;
-let controls2 = new THREE.OrbitControls(camera2, renderer2.domElement);
+let controls2 = new OrbitControls(camera2, renderer2.domElement);
 controls2.rotateSpeed = 3.0;
 
 
@@ -283,7 +287,7 @@ window.addEventListener("load", function() {
   rightMatFolder.hide();
   rightMatFolder.add(mouseCon, 'SyncMouse').onChange(flag => {
     if(!flag) {
-      controls2 = new THREE.OrbitControls(camera2, renderer2.domElement);
+      controls2 = new OrbitControls(camera2, renderer2.domElement);
       controls2.rotateSpeed = 3.0;
     }
   });
@@ -340,7 +344,7 @@ window.addEventListener("load", function() {
 });
 
 //* Add teapots
-const teapotGeo = new THREE.TeapotBufferGeometry(0.5, 10, true, true);
+const teapotGeo = new TeapotBufferGeometry(0.5, 10, true, true);
 const teapot1 = new THREE.Mesh(teapotGeo, leftMatCon.getMat());
 teapot1.castShadow = true;
 scene1.add(teapot1);
