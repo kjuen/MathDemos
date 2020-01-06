@@ -18,6 +18,6 @@ const f = brd.create('functiongraph',[function(x){
                       strokeWidth:2
                      });
 
-A.on('drag',function(){ brd.update();});
-omega.on('drag',function(){ brd.update();});
-phi.on('drag',function(){ brd.update();});
+A.on('drag', function(){ brd.update();});
+omega.on('drag', function(){ brd.update();});
+phi.on('drag', function(){ brd.update();});
