@@ -69,7 +69,7 @@ ball.matrix.setPosition(currentPos);
 
 //* Render loop
 const computerClock = new THREE.Clock();
-const controls = new TrackballControls( camera );
+const controls = new TrackballControls( camera, canvas );
 controls.dynamicDampingFactor = 1;
 controls.rotateSpeed = 3.0;
 controls.zoomSpeed = 2;
